@@ -1,0 +1,14 @@
+{%for note in notes %}
+<div >
+  <h2 style="display: inline-block;">{{note.title}}</h2>
+  <form class="delform" action="/delete/{{note.id}}" method="post">
+    {% csrf_token %}
+    <button class="delete" style="margin-left: 10px" type="submit" name="button">Delete1</button>
+  </form>
+  <form class="" action="/add_description" method="post">
+    <textarea style="border: 2px solid purple; display: inline-block; padding: 20px; margin: 20px" name="description"></textarea>
+    <input type="submit" name="" value="">
+  </form>
+  <hr>
+</div>
+{%endfor%}

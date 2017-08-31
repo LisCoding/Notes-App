@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Notes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="  https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <h1>Notes</h1>
+
+    <div id="add_notes">
+
+    </div>
+
+    <form id="note" class="" action="/create" method="post">
+      {% csrf_token %}
+      <input type="text" placeholder="Insert title here" name="title" value="">
+      <input type="submit" name="" value="Add note">
+    </form>
+    <script>
+      $('#note').submit(function (e) {
+        e.preventDefault()
+        $.ajax({
+          url:$(this).attr("action"),
+          method: 'post',
+          data: $(this).serialize(),
+          success: function (serverResponse) {
+            $("#add_notes").html(serverResponse)
+          }
+        })
+      })
+    </script>
+    <script>
+    // delform targets the form to grab the info for the ajax call
+    $(document).on('submit', '.delform', function (e) {
+      e.preventDefault()
+      $.ajax({
+        url:$(this).attr("action"),
+        method: 'post',
+        data: {
+          csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+        },
+        success: function (serverResponse) {
+          $("#add_notes").html(serverResponse)
+        }
+      })
+    })
+    </script>
+  </body>
+</html>
